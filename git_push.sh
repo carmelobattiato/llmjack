@@ -112,7 +112,11 @@ read -r COMMIT_MSG
 
 # ── staging + commit ──────────────────────────────────────────────────────────
 git add -A
-git commit -m "$COMMIT_MSG" || { warn "Nessuna modifica da committare."; exit 0; }
+if git diff --cached --quiet; then
+    warn "Nessuna modifica da committare — procedo comunque con il push."
+else
+    git commit -m "$COMMIT_MSG"
+fi
 
 # ── push (token nell'URL, bypassa rewrite SSH globale) ───────────────────────
 info "Push su $REPO_URL ($BRANCH)..."

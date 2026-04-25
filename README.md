@@ -226,4 +226,4 @@ Only Qwen supports truly incremental streaming — its JS interceptor pushes SSE
 
 ## License
 
-MIT
+Apache 2.0
