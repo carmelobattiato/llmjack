@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import json; cfg = json.load\\(open\\('providers.json'\\)\\); print\\(cfg.get\\('logging'\\)\\)\")",
+      "Bash(python *)",
+      "Bash(chmod +x *)"
+    ]
+  }
+}

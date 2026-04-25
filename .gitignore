@@ -1,0 +1,34 @@
+# Runtime data (sessions + Chrome profiles)
+data/
+
+# Legacy session/profile files (pre-reorganization)
+.session_id
+.chat_url
+.chrome_profile/
+.deepseek_profile/
+.chatgpt_profile/
+.claude_profile/
+.*_session_id
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+# Runtime data
+logs/
+# Token e credenziali
+.llmjack_token
+*.token
+*.pwd
+*.password
+.env
+.env.*
+# Sessioni legacy
+venv/
+# macOS
+.DS_Store
+# Backup
+*.bak
+providers.json.bak
+# Script stesso (opzionale: rimuovi se vuoi versionarlo)

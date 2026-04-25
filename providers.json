@@ -1,0 +1,152 @@
+{
+  "default_provider": "deepseek",
+  "providers": {
+    "qwen": {
+      "enabled": false,
+      "default_model": "qwen3.6-plus",
+      "models": {
+        "qwen3.5-flash": {
+          "enabled": false,
+          "label": "Qwen 3.5 Flash — veloce, economico"
+        },
+        "qwen3.5-plus": {
+          "enabled": false,
+          "label": "Qwen 3.5 Plus — bilanciato"
+        },
+        "qwen3-max": {
+          "enabled": false,
+          "label": "Qwen 3 Max — massima qualità serie 3"
+        },
+        "qwen3.6-plus": {
+          "enabled": false,
+          "label": "Qwen 3.6 Plus — nuova gen, default"
+        },
+        "qwen3.6-flash": {
+          "enabled": false,
+          "label": "Qwen 3.6 Flash — nuova gen, veloce"
+        },
+        "qwen3.6-max": {
+          "enabled": false,
+          "label": "Qwen 3.6 Max — nuova gen, massima qualità"
+        }
+      },
+      "params": {
+        "thinking_enabled": false,
+        "search_enabled": false
+      }
+    },
+    "deepseek": {
+      "enabled": true,
+      "default_model": "deepseek-reasoner",
+      "models": {
+        "deepseek-chat": {
+          "enabled": false,
+          "model_type": "default",
+          "label": "DeepSeek Chat — standard"
+        },
+        "deepseek-reasoner": {
+          "enabled": true,
+          "model_type": "thinking",
+          "label": "DeepSeek Reasoner — ragionamento esteso"
+        }
+      },
+      "params": {
+        "thinking_enabled": true,
+        "search_enabled": true,
+        "preempt": true
+      }
+    },
+    "chatgpt": {
+      "enabled": false,
+      "default_model": "gpt-5",
+      "models": {
+        "gpt-5": {
+          "enabled": false,
+          "label": "GPT-5 — Flagship 2026"
+        },
+        "gpt-5-mini": {
+          "enabled": false,
+          "label": "GPT-5 Mini — Bilanciato & Veloce"
+        },
+        "gpt-5-nano": {
+          "enabled": false,
+          "label": "GPT-5 Nano — Ultra economico"
+        },
+        "gpt-4o": {
+          "enabled": false,
+          "label": "GPT-4o — Legacy Standard"
+        },
+        "gpt-4o-mini": {
+          "enabled": false,
+          "label": "GPT-4o Mini — Legacy Economico"
+        },
+        "o3": {
+          "enabled": false,
+          "label": "o3 — Ragionamento Avanzato (Deep Think)"
+        },
+        "o3-mini": {
+          "enabled": false,
+          "label": "o3 Mini — Ragionamento Rapido"
+        },
+        "o4": {
+          "enabled": false,
+          "label": "o4 — Ragionamento Esperto 2026"
+        },
+        "o4-mini": {
+          "enabled": false,
+          "label": "o4 Mini — Ragionamento Leggero"
+        }
+      },
+      "params": {
+        "thinking_enabled": true
+      }
+    },
+    "claude": {
+      "enabled": false,
+      "default_model": "claude-haiku-4-5-20251001",
+      "models": {
+        "claude-opus-4-7": {
+          "enabled": false,
+          "label": "Claude Opus 4.7 — massima qualità"
+        },
+        "claude-sonnet-4-6": {
+          "enabled": false,
+          "label": "Claude Sonnet 4.6 — bilanciato"
+        },
+        "claude-haiku-4-5-20251001": {
+          "enabled": false,
+          "label": "Claude Haiku 4.5 — veloce"
+        }
+      },
+      "params": {
+        "thinking_enabled": false
+      }
+    },
+    "gemini": {
+      "enabled": false,
+      "default_model": "gemini-2.5-pro",
+      "models": {
+        "gemini-2.5-pro": {
+          "enabled": false,
+          "label": "Gemini 2.5 Pro — massima qualità"
+        },
+        "gemini-2.0-flash": {
+          "enabled": false,
+          "label": "Gemini 2.0 Flash — veloce"
+        },
+        "gemini-2.5-flash": {
+          "enabled": false,
+          "label": "Gemini 2.5 Flash — bilanciato"
+        }
+      },
+      "params": {
+        "thinking_enabled": false,
+        "search_enabled": false
+      }
+    }
+  },
+  "logging": {
+    "level": "DEBUG",
+    "log_keep_sessions": 10
+  }
+}
