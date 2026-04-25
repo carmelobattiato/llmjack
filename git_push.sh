@@ -18,6 +18,10 @@ success() { echo -e "${GREEN}✓${RESET} $*"; }
 warn()    { echo -e "${YELLOW}⚠${RESET} $*"; }
 die()     { echo -e "${RED}✗${RESET} $*" >&2; exit 1; }
 
+# ── script dir ────────────────────────────────────────────────────────────────
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
 # ── token ─────────────────────────────────────────────────────────────────────
 if [[ -f "$TOKEN_FILE" ]]; then
     GITHUB_TOKEN=$(<"$TOKEN_FILE")
@@ -31,10 +35,6 @@ else
     chmod 600 "$TOKEN_FILE"
     success "Token salvato in $TOKEN_FILE"
 fi
-
-# ── repo dir ──────────────────────────────────────────────────────────────────
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
 
 # ── git init se non esiste ────────────────────────────────────────────────────
 if [[ ! -d ".git" ]]; then
@@ -82,8 +82,8 @@ declare -a IGNORE_ENTRIES=(
     "*.bak"
     "providers.json.bak"
     ""
-    "# Script stesso (opzionale: rimuovi se vuoi versionarlo)"
-    # "git_push.sh"
+    "# Script di deploy locale"
+    "git_push.sh"
 )
 
 touch "$GITIGNORE"
@@ -92,13 +92,11 @@ for entry in "${IGNORE_ENTRIES[@]}"; do
 done
 success ".gitignore aggiornato."
 
-# ── remote ────────────────────────────────────────────────────────────────────
-REPO_WITH_TOKEN="${REPO_URL/https:\/\//https:\/\/${GITHUB_TOKEN}@}"
-
+# ── remote (URL senza token — credenziali passate via helper) ─────────────────
 if git remote get-url origin &>/dev/null; then
-    git remote set-url origin "$REPO_WITH_TOKEN"
+    git remote set-url origin "$REPO_URL"
 else
-    git remote add origin "$REPO_WITH_TOKEN"
+    git remote add origin "$REPO_URL"
 fi
 
 # ── stato attuale ─────────────────────────────────────────────────────────────
@@ -116,8 +114,13 @@ read -r COMMIT_MSG
 git add -A
 git commit -m "$COMMIT_MSG" || { warn "Nessuna modifica da committare."; exit 0; }
 
-# ── push ──────────────────────────────────────────────────────────────────────
+# ── push (token nell'URL, bypassa rewrite SSH globale) ───────────────────────
 info "Push su $REPO_URL ($BRANCH)..."
-git push -u origin "$BRANCH"
+
+# Costruisce URL con token e forza HTTPS ignorando qualsiasi rewrite SSH globale.
+PUSH_URL="https://x-token:${GITHUB_TOKEN}@github.com/${REPO_URL#https://github.com/}.git"
+git \
+    -c "url.https://github.com/.insteadOf=git@github.com:" \
+    push -u "$PUSH_URL" HEAD:"$BRANCH"
 
 success "Push completato → ${BOLD}${REPO_URL}${RESET}"
