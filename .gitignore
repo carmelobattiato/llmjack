@@ -34,3 +34,4 @@ providers.json.bak
 # Script stesso (opzionale: rimuovi se vuoi versionarlo)
 # Script di deploy locale
 git_push.sh
+CLAUDE.md
